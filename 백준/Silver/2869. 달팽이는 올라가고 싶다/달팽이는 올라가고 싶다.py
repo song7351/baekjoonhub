@@ -1,10 +1,8 @@
-from math import ceil
+a,b,v = map(int, input().split())
 
-
-a = input().split()
-a = list(map(int, a))
-v, b, a = a[2],a[1],a[0]
-
-day = ceil((v-a)/(a-b) + 1)
+if (v-a)%(a-b) == 0:
+    day = (v-a)//(a-b) + 1
+else:
+    day = (v-a)//(a-b) + 2
 
 print(day)

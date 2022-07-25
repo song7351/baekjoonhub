@@ -1,16 +1,12 @@
-n = int(input())
-
-a = 0
-b = 0
-min = n
-for i in range(n):
-    for j in range(n):
-        c = 5*i + 3*j
-        if c == n and (i+j) <= min:
-            min = i+j
-
-if min == n:
-    print(-1)
+a = int(input())
+cnt = 0
+while a%5 != 0:
+    a = a-3
+    cnt += 1
+    if a < 0:
+        break
+cnt += a//5
+if a%5 == 0:
+    print(cnt)
 else:
-    print(min)
-            
+    print(-1)

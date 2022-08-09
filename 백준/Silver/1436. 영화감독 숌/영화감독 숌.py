@@ -2,11 +2,9 @@ ans = int(input())
 cnt = 0
 num = 665
 while True:
-    num = str(num)
-    if "666" in num:
+    if "666" in str(num):
         cnt += 1
         if cnt  == ans:
+            print(num)
             break
-    num = int(num) + 1
-
-print(num)
+    num += 1

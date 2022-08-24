@@ -11,25 +11,18 @@ for _ in range(N):
     for i in range(1, len(B)):
         b_ttagi[B[i]] += 1
 
-    if a_ttagi == b_ttagi:
-        print("D")
-    elif a_ttagi[2:] == b_ttagi[2:]:
-        if a_ttagi[1] > b_ttagi[1]:
-            print("A")
+    cnt = 0
+    for i in range(4, 0, -1):
+        if a_ttagi[i] == b_ttagi[i]:
+            cnt += 1
         else:
-            print("B")
-    elif a_ttagi[3:] == b_ttagi[3:]:
-        if a_ttagi[2] > b_ttagi[2]:
-            print("A")
-        else:
-            print("B")
-    elif a_ttagi[4] == b_ttagi[4]:
-        if a_ttagi[3] > b_ttagi[3]:
-            print("A")
-        else:
-            print("B")
+            if a_ttagi[i] > b_ttagi[i]:
+                ans = 'A'
+            else:
+                ans = 'B'
+            break
+
+    if cnt == 4:
+        print('D')
     else:
-        if a_ttagi[4] > b_ttagi[4]:
-            print("A")
-        else:
-            print("B")
+        print(ans)

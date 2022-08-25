@@ -12,8 +12,15 @@ for i in range(K):
         col.append(idx)
 
 # 크기별 정렬
-row.sort()
-col.sort()
+for i in range(len(row)-1):
+    for j in range(i+1, len(row)):
+        if row[i] > row[j]:
+            row[i], row[j] = row[j], row[i]
+
+for i in range(len(col)-1):
+    for j in range(i+1, len(col)):
+        if col[i] > col[j]:
+            col[i], col[j] = col[j], col[i]
 
 # 잘린 구간별 크기 리스트
 r = []
@@ -25,8 +32,10 @@ for i in range(len(col)-1):
     c.append(col[i+1] - col[i])
 
 # 넓이의 최대값
-a = max(r)
-b = max(c)
-max_num = a*b
+max_num = 0
+for i in r:
+    for j in c:
+        if i*j > max_num:
+            max_num = i*j
 
 print(max_num)

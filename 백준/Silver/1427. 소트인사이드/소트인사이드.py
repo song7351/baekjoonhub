@@ -1,8 +1,5 @@
-num_list = list(map(int, input()))
-N = len(num_list)
-for i in range(N):
-    for j in range(N-1):
-        if num_list[j] < num_list[j+1]:
-            num_list[j], num_list[j+1] = num_list[j+1], num_list[j]
-num_list = map(str, num_list)
-print(''.join(num_list))
+n = list(input())
+n_lst = list(map(int, n))
+n_lst.sort(reverse=True)
+n_lst = list(map(str, n_lst))
+print(''.join(n_lst))

@@ -1,13 +1,18 @@
+"""
+
+sort = 메모리 초과
+카운트 정렬
+"""
 import sys
+input = sys.stdin.readline
 
-test_case = int(input())
+n = int(input())
+lst = [0] * 10001
+for _ in range(n):
+    idx = int(input())
+    lst[idx] += 1
 
-num_list = [0] * (10000+1)
-for i in range(test_case):
-    num = int(sys.stdin.readline())
-    num_list[num] += 1
-    
-for i in range(10000+1):
-    if num_list[i] != 0:
-        for j in range(num_list[i]):
+for i in range(1, 10001):
+    if lst[i] != 0:
+        for _ in range(lst[i]):
             print(i)

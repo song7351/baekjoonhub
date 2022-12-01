@@ -49,36 +49,27 @@ test_case = int(input())
 
 for tc in range(test_case):
     t1, t2, t3 = map(int, input().split())
-    safe = 0
-    valid_cnt = 0
+    valid_cnt = False
     # 연도/월/일인 경우
     if check1(t1,t2,t3):
-        valid_cnt += 1
-        if check2(t1,t2,t3):
-            safe += 1
-        else:
+        valid_cnt = True
+        if not check2(t1, t2, t3):
             print("unsafe")
             continue
 
-    if check1(t3, t2, t1):
-        valid_cnt += 1
-        if check2(t3,t2,t1):
-            safe += 1
-        else:
+    if check1(t3,t2,t1):
+        valid_cnt = True
+        if not check2(t3, t2, t1):
             print("unsafe")
             continue
 
     if check1(t3,t1,t2):
-        valid_cnt += 1
-        if check2(t3,t1,t2):
-            safe += 1
-        else:
+        valid_cnt = True
+        if not check2(t3, t1, t2):
             print("unsafe")
             continue
 
-    if valid_cnt == 0:
+    if not valid_cnt:
         print("invalid")
-    elif valid_cnt == safe:
+    else:
         print("safe")
-    # else:
-    #     print("unsafe")

@@ -15,14 +15,15 @@ def dfs(x,depth):
     global ans
 
     if depth == 4:
-        ans = 1
-        return
+        print(1)
+        exit(0)
 
     if visited[x] == 0:
         visited[x] = 1
         for y in graph[x]:
             if visited[y] == 0:
                 dfs(y,depth+1)
+        # dfs로 깊이 들어가면서 탐색시 주의할 사항. 방문기록을 초기화시켜줘야됨.
         visited[x] = 0
 
 N, M = map(int, input().split())
@@ -34,11 +35,8 @@ for _ in range(M):
     graph[s].append(e)
     graph[e].append(s)
 
-ans = 0
 for i in range(N):
     visited = [0] * N
-    if ans == 1:
-        break
     dfs(i,0)
 
-print(ans)
+print(0)

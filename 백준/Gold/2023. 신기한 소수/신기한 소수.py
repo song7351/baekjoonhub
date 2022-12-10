@@ -11,7 +11,7 @@ import sys
 sys.setrecursionlimit(10**9)
 
 def check(x):
-    for i in range(2,x//2 + 1):
+    for i in range(2,int(x**0.5) + 1):
         if x % i == 0:
             return False
     return True
@@ -26,7 +26,7 @@ def dfs(x):
         elif len(str(x)) < n:
             str_x = str(x)
             # 1~9를 붙여라
-            for i in range(1,10):
+            for i in [1,3,5,7,9]:
                 tmp_x = str_x + str(i)
                 dfs(int(tmp_x))
 

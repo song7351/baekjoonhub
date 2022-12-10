@@ -34,9 +34,9 @@ for _ in range(M):
     graph[s].append(e)
     graph[e].append(s)
 
-visited = [0] * N
 ans = 0
 for i in range(N):
+    visited = [0] * N
     if ans == 1:
         break
     dfs(i,0)

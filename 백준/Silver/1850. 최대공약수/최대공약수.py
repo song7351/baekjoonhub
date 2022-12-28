@@ -8,5 +8,4 @@ import math
 
 a,b = map(int, input().split())
 c = math.gcd(a,b)
-for _ in range(c):
-    print('1', end='')
+print('1'*c)

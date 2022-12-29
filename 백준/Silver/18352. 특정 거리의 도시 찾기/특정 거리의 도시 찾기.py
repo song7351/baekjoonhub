@@ -1,45 +1,45 @@
 """
-1번부터 N번까지의 도시
-M개의 단방향 도로
-목적: 특정한 도시 X로부터 출발하여 도달할 수 있는 모든 도시 중에서, 최단 거리가 정확히 K인 모든 도시들의 번호를 출력
-첫째 줄에 도시의 개수 N, 도로의 개수 M, 거리 정보 K, 출발 도시의 번호 X
+1줄: N M K X
+N 도시의 개수
+M 도로의 개수
+K 거리 정보
+X 출발 도시 번호
+
+M줄: A B (단방향)
+
+출력: X도시에서 최단거리 K만큼 이동가능한 도시를 오름차순으로 출력(없다면 -1)
 """
 import sys
 input = sys.stdin.readline
 
-def bfs(doro, p, visited):
-    global K
-    waited = [[p,0]]
-    visited[p] = 1
-    cnt = 0
+def bfs(k, x):
+    q = [(k,x)]
+    while q:
+        cnt, start = q.pop(0)
+        used[start] = 1
+        if cnt == 0:
+            ans.append(start)
+        else:
+            for i in lst[start]:
+                if used[i] == 0 and cnt-1 >= 0:
+                    q.append((cnt-1, i))
+                    used[i] = 1
 
-    while waited:
-        lst = waited.pop(0)
-        c = lst[0]
-        cnt = lst[1]
-        if cnt == K:
-            ans.append(c)
-        elif cnt < K:
-            for i in doro[c]:
-                if not visited[i]:
-                    waited.append([i,cnt+1])
-                    visited[i] = 1
+N,M,K,X = map(int, input().split())
 
-N, M, K, X = map(int,input().split())
-doro = [[] for _ in range(N+1)]
+lst = [ [] for _ in range(N+1) ]
+used = [0] * (N+1)
 
-for i in range(M):
-    s,e = map(int,input().split())
-    doro[s].append(e)
+for _ in range(M):
+    A, B = map(int, input().split())
+    lst[A].append(B)
 
 ans = []
-visited = [0] * (N+1)
-waited = [[X,0]]
-#시작점 X, 현재이동횟수
-bfs(doro, X, visited)
-if not ans:
+bfs(K, X)
+ans.sort()
+
+if len(ans) == 0:
     print(-1)
 else:
-    ans.sort()
     for i in ans:
         print(i)

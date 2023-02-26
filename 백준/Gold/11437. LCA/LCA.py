@@ -1,71 +1,52 @@
-"""
-최소공통조상: 2개의 노드의 최소공통조상을 찾는다.
-두개가 같은 깊이일때 2개의 부모노드가 같다면? -> 최소공통조상
-두개가 같은 깊이인데도 부모노드가 다르다? -> 각자의 부모노드로 올라간다.
-
-우선해야될것.
-부모노드설정과 깊이설정 how? dfs, bfs
-"""
 import sys
-
 input = sys.stdin.readline
+sys.setrecursionlimit(10**6)
 
-N = int(input())
-tree = [[] for _ in range(N+1)]
-
-# 양방향 노드
-for i in range(N-1):
-    s,e = map(int, input().split())
-    tree[s].append(e)
-    tree[e].append(s)
-
-depth = [0] * (N+1)
-parent = [0] * (N+1)
-visited = [0] * (N+1)
-
-def bfs(node):
-    lst = [node]
-    visited[node] = 1
-    level = 1
-    now_size = 1
-    count = 0
-    while lst:
-        now_node = lst.pop(0)
-        for next in tree[now_node]:
-            if not visited[next]:
-                visited[next] = 1
-                lst.append(next)
-                parent[next] = now_node
-                depth[next] = level
-        count += 1
-        if count == now_size:
-            count = 0
-            now_size = len(lst)
-            level += 1
-
-# 루트는 1이다.
-bfs(1)
-
-def find(a,b):
-    #  만약 a가 깊이가 더 얕으면 b를 한단계 높여야 한다.
-    if depth[a] < depth[b]:
-        a,b = b,a
-
-    # 어떻게? 무조건 깊이가 더 얕은쪽은 a로 설정한다.
-    # 두개의 깊이가 같을때까지 한쪽을 끌어올린다.
+def makeTree(node, dep):
+    depth[node] = dep
+    for c in child[node]:
+        if parents[c] == 0:
+            parents[c] = node
+            makeTree(c, dep+1)
+            
+def lca(a, b):    
+    if a > b: 
+        a, b = b, a
+    x, y = a, b
+        
+    if (a, b) in answers:
+        return answers[(a, b)]
+    
+    if depth[a] > depth[b]:
+        a, b = b, a
+    
+    if (a, b) in answers:
+        return answers[(a, b)]
+    
     while depth[a] != depth[b]:
-        a = parent[a]
-
-    # 그렇게해서 a랑 b가 다르면? 둘다 깊이를 끌어올린다.
-    # 그래서 두개가 같아지면? return한다.
+        b = parents[b]
     while a != b:
-        a = parent[a]
-        b = parent[b]
+        a = parents[a]
+        b = parents[b]   
+    
+    answers[(x, y)] = a
+    return a      
 
-    return a
+n = int(input())
+depth = [0]*(n+1)
+parents = [0]*(n+1)
+child = [[] for _ in range(n+1)]
+answers = {}
 
-M = int(input())
+for _ in range(n-1):
+    a, b = map(int, input().split())
+    child[a].append(b) 
+    child[b].append(a)
+    
+parents[1] = 1
+makeTree(1, 1)  
 
-for _ in range(M):
-    a,b = map(int, input().split())
-    print(find(a,b))
+m = int(input())
+for _ in range(m):
+    a, b = map(int, input().split()) 
+    print(lca(a, b))

@@ -4,11 +4,11 @@
 
 ### 성능 요약
 
-메모리: 30840 KB, 시간: 84 ms
+메모리: 31256 KB, 시간: 56 ms
 
 ### 분류
 
-구현(implementation), 수학(math)
+다이나믹 프로그래밍(dp), 구현(implementation), 수학(math)
 
 ### 문제 설명
 

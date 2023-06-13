@@ -17,7 +17,4 @@ def solution(bridge_length, weight, truck_weights):
             t.append(answer)
             q.popleft()
         
-            
-        
-    
     return answer+bridge_length

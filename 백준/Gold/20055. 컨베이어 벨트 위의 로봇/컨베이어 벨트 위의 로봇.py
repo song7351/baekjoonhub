@@ -6,29 +6,26 @@
 3. 로봇을 새로추가한다.
     단, 추가하는 위치값이 0이면 추가하지 않는다.
 """
-from collections import Counter
+from collections import deque
 import sys
 
 input = sys.stdin.readline
 
 n,k = map(int, input().split())
-robots = [False] * n
-belt = list(map(int, input().split()))
+robots = deque([False] * n)
+belt = deque(list(map(int, input().split())))
 answer = 0
 
-while Counter(belt)[0] < k:
+while True:
     # 한칸 이동한다.
     answer += 1
 
     # 벨트와 로봇이 이동한다.
-    tmp_belt = belt.pop()
-    belt = [tmp_belt] + belt
-
-    robots.pop()
-    robots = [False] + robots
+    belt.rotate(1)
+    robots.rotate(1)
 
     # 맨 마지막 로봇제거
-    robots[n-1] = False
+    robots[-1] = False
 
     # 로봇을 이동한다.
     for i in range(n-2, -1, -1):
@@ -39,13 +36,14 @@ while Counter(belt)[0] < k:
                 robots[i+1], robots[i] = True, False
                 belt[i+1] -= 1
 
-
+    # 맨 마지막 로봇제거
+    robots[-1] = False
+    
     # 로봇추가
-    tmp_robot = True
-    if belt[0] == 0:
-        tmp_robot = False
-    robots[0] = tmp_robot
-    if tmp_robot:
+    if robots[0] == False and belt[0] != 0:
+        robots[0] = True
         belt[0] -= 1
-
-print(answer)
+    
+    if belt.count(0) >= k:
+        print(answer)
+        exit(0)

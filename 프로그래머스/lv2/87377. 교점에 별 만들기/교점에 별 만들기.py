@@ -2,7 +2,7 @@ def solution(line):
     answer = []
     n = len(line)
     lst = set()
-    INF = int(1e15)
+    INF = int(1e10)
     left, right, bottom, top = INF, -INF, INF, -INF
     for i in range(n - 1):
         a, b, e = line[i]
